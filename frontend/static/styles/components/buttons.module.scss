@@ -1,0 +1,12 @@
+.default_button {
+  padding: 1rem;
+  border: 1px solid #ccc;
+  font-size: 1.6rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform .3s ease-in-out;
+
+  &:hover {
+    transform: translateY(.2rem);
+  }
+}

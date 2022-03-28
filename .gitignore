@@ -1,0 +1,4 @@
+backend/public
+node_modules
+.next
+yarn.lock

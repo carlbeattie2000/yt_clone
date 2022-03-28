@@ -1,0 +1,12 @@
+.videos_preview_container {
+  width: 95%;
+  margin: 2rem auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 5rem;
+
+  a {
+    color: #fff;
+    text-decoration: none;
+  }
+}

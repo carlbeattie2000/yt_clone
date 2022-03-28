@@ -1,0 +1,41 @@
+.container {
+  display: grid; 
+  grid-auto-flow: row dense; 
+  grid-template-columns: 15% 1fr; 
+  gap: 10px 10px; 
+  grid-template-areas: 
+    "top-nav top-nav"
+    "side-nav content"
+    "side-nav content"; 
+
+  &__main {
+    grid-area: content;
+  }
+
+  &__top_nav {
+    grid-area: top-nav;
+  }
+
+  &__side_nav {
+    grid-area: side-nav;
+  }
+}
+
+.container_large {
+  display: grid; 
+  grid-auto-flow: row dense; 
+  grid-template-columns: 15% 1fr; 
+  gap: 10px 10px; 
+  grid-template-areas: 
+    "top-nav top-nav"
+    "content content"
+    "content content"; 
+
+  &__main {
+    grid-area: content;
+  }
+
+  &__top_nav {
+    grid-area: top-nav;
+  }
+}

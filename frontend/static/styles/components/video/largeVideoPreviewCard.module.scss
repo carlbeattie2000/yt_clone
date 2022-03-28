@@ -1,0 +1,50 @@
+.large_image_preview_card {
+  &__thumbnail {
+    position: relative;
+
+    img {
+      width: 100%;
+    }
+
+    .thumbnail__video_length {
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.8);
+      font-size: 1.2rem;
+      padding: .3rem;
+      border-radius: .4rem;
+      top: 85%;
+      left: 85%;
+    }
+  }
+
+  .details {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 0;
+
+    &__video_title {
+      font-size: 1.6rem;
+      line-height: 2.2rem;
+      font-weight: 500;
+    }
+
+    &__video_author {
+      font-size: 1.4rem;
+      line-height: 2rem;
+      color: #8f8f8f;
+      font-weight: 400;
+    }
+
+    &__video_stats {
+      display: flex;
+      gap: 1rem;
+
+      &__views, &__date_uploaded {
+        color: rgb(170, 170, 170);
+        font-size: 1.4rem;
+        line-height: 2rem;
+        font-weight: 400;
+      }
+    }
+  }
+}
