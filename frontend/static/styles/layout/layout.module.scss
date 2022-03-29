@@ -39,3 +39,28 @@
     grid-area: top-nav;
   }
 }
+
+@media only screen and (max-width: 500px) {
+  .container {
+    display: grid; 
+    grid-auto-flow: row dense; 
+    grid-template-columns: 15% 1fr; 
+    gap: 10px 10px; 
+    grid-template-areas: 
+      "top-nav top-nav"
+      "content content"
+      "content content"; 
+  
+    &__main {
+      grid-area: content;
+    }
+  
+    &__top_nav {
+      grid-area: top-nav;
+    }
+  
+    &__side_nav {
+      display: none;
+    }
+  }
+} 

@@ -64,3 +64,20 @@ export function timeSinceDate(date) {
   }
 
 }
+
+export function formattedDate(date) {
+  const datePassed = new Date(date);
+  const dateNow = new Date();
+
+  const timeDifference = dateNow.getTime() - datePassed.getTime();
+
+  const timeDifferenceToSeconds = timeDifference / 1000;
+
+  if (timeDifferenceToSeconds < (60 * 10080) - 1) {
+
+    return timeSinceDate(date);
+
+  }
+
+  return new Date(date).toLocaleDateString();
+}

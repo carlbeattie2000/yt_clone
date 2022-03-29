@@ -2,8 +2,8 @@ import styles from "../../static/styles/components/video/largeVideoPreviewCard.m
 import convertSecondsIntoAppropriateFormat from "../../utils/dataToSeconds";
 import formatNumber from "../../utils/formatNumber";
 import { timeSinceDate } from "../../utils/timeFunctions";
-import cookie from "cookie-cutter";
 import { useEffect, useState } from "react";
+import { getVideoCurrentTime } from "../../utils/videoTracking"
 
 export default function LargeVideoPreviewCard({
   v_id,
@@ -22,7 +22,7 @@ export default function LargeVideoPreviewCard({
   const uploadedTimeCorrectFormat = timeSinceDate(uploaded);
 
   useEffect(() => {
-    let videoTimeWatched = parseFloat(cookie.get(v_id + "_videoCurrentTime") * 100) / 100 || 0;
+    let videoTimeWatched =  getVideoCurrentTime(v_id) || 0;
 
     videoTimeWatched = Math.round(videoTimeWatched /  length * 100) / 100;
 
@@ -34,7 +34,7 @@ export default function LargeVideoPreviewCard({
     <div className={styles.large_image_preview_card}>
       <div className={styles.large_image_preview_card__thumbnail}>
         <img
-          src={`http://localhost:4001/video_content/images/${thumbnailSrc}`}
+          src={`http://192.168.0.3:4001/video_content/images/${thumbnailSrc}`}
           alt="thumbnail"
         />
 

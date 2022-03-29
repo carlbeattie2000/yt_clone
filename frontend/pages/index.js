@@ -4,7 +4,7 @@ import styles from "../static/styles/index.module.scss";
 import Link from "next/link";
 
 export const getServerSideProps = async (context) => {
-  const videosRequests = await fetch("http://localhost:4001/recommend_videos");
+  const videosRequests = await fetch("http://192.168.0.3:4001/recommend_videos");
 
   const videosResponse = await videosRequests.json();
 

@@ -1,0 +1,52 @@
+.video_box {
+  display: grid;
+  grid-template-columns: 1fr 30%;
+  margin: 1.5rem auto;
+  width: 90%;
+
+  .video_container {
+    video {
+      width: 100%;
+    }
+  
+    .video_details {
+      margin: 1rem 0;
+
+      .video_main_details {
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+
+        &__keywords_box {
+          p {
+            color: rgb(62, 166, 255);
+            font-size: 1.2rem;
+          }
+        }
+
+        &__video_title {
+          p {
+            color: #fff;
+            font-size: 1.9rem;
+            line-height: 2.6rem;
+          }
+        }
+
+        &__video_sub_details {
+          &__stats {
+            display: flex;
+            gap: 1rem;
+
+            div {
+              p {
+                color: rgb(170, 170, 170);
+                font-size: 1.4rem;
+                line-height: 2rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

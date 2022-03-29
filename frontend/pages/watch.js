@@ -1,12 +1,14 @@
 import LayoutLarge from "./layoutLarge";
 import { useState, useEffect } from "react";
-import cookieCutter from "cookie-cutter";
-import { useRouter } from "next/router";
+import { handleWatchTimeTracking, getVideoCurrentTime } from "../utils/videoTracking";
+import formatNumber from "../utils/formatNumber";
+import { formattedDate } from "../utils/timeFunctions";
+import styles from "../static/styles/watch.module.scss";
 
 export const getServerSideProps = async (context) => {
   const v_id = context.query.v;
   
-  const videoRequest = await fetch(`http://localhost:4001/video_details?v_id=${v_id}`);
+  const videoRequest = await fetch(`http://192.168.0.3:4001/video_details?v_id=${v_id}`);
 
   const videoResponse = await videoRequest.json();
   
@@ -19,64 +21,54 @@ export const getServerSideProps = async (context) => {
 
 export default function WatchVideo({ videoResponse }) {
   
-  const router = useRouter();
-
-  const [watchTime, setWatchTime] = useState(0);
   const [currentVideoTime, setCurrentVideoTime] = useState(0);
 
   useEffect(() => {
-    let videoTimeWatched = parseFloat(cookieCutter.get(videoResponse.v_id + "_videoCurrentTime")) || 0;
-
-    setCurrentVideoTime(videoTimeWatched);
+    setCurrentVideoTime(getVideoCurrentTime(videoResponse.v_id));
   }, []);
 
-  function handleVideoWatchTimeTracking(e) {
-
-    const v_id = router.query.v;
-
-    setWatchTime(watchTime + .3);
-
-    cookieCutter.set(v_id+"_videoCurrentTime", e.target.currentTime);
-
-    handleCheckingForValidView(v_id);
-
-  }
-
-  function handleCheckingForValidView(v_id) {
-
-    const videoPlayedLength = parseFloat(cookieCutter.get(v_id));
-
-    if (videoPlayedLength >= videoResponse.length) {
-      return
-    }
-
-    cookieCutter.set(v_id, Math.round(watchTime * 100) / 100);
-
-    if (cookieCutter.get(v_id+"viewed")) {
-      return
-    }
-
-    if (videoPlayedLength > (videoResponse.length / 2)) {
-      // valid view
-      cookieCutter.set(v_id+"viewed", true);
-    }
-
-  }
+  
 
   return (
     <LayoutLarge>
-      <section className="video-box">
-        <video 
-          controls 
-          preload="auto" 
-          onTimeUpdate={(e) => handleVideoWatchTimeTracking(e)}
-          onLoadedMetadata={(e) => {
-            e.target.currentTime = currentVideoTime
-            console.log("reload data", currentVideoTime);
-          }}
-          >
-          <source src={`http://localhost:4001/video_content/videos/${videoResponse.v_id}.mp4`}></source>
-        </video>
+      <section className={styles.video_box}>
+        <div className={styles.video_container}>
+          <video
+            key={videoResponse.v_id}
+            controls
+            preload="auto"
+            onTimeUpdate={(e) => handleWatchTimeTracking(e, videoResponse.v_id, videoResponse.length)}
+            onLoadedMetadata={(e) => {
+              e.target.currentTime = currentVideoTime
+            }}
+            >
+            <source src={`http://192.168.0.3:4001/video_content/videos/${videoResponse.v_id}.mp4`}></source>
+          </video>
+          <div className={styles.video_details}>
+            <div className={styles.video_main_details}>
+              <div className={styles.video_main_details__keywords_box}>
+                <p>#house #build #gaming</p>
+              </div>
+              <div className={styles.video_main_details__video_title}>
+                <p>{videoResponse.title}</p>
+              </div>
+              <div className={styles.video_main_details__video_sub_details}>
+                <div className={styles.video_main_details__video_sub_details__stats}>
+                  <div>
+                    <p>{formatNumber(videoResponse.views)} views</p>
+                  </div>
+
+                  <div>
+                    <p>{formattedDate(videoResponse.uploaded)}</p>
+                  </div>
+                </div>
+                <div className={styles.video_main_details__video_sub_details__actions}>
+          
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
     </LayoutLarge>
   )

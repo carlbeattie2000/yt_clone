@@ -3,6 +3,7 @@ import { AiOutlineSearch, AiOutlineClose } from "react-icons/ai";
 import Link from "next/link";
 import DefaultButton from "../defaultButton";
 import { useState } from "react";
+import MainLogo from "../svg/mainLogo";
 
 export default function TopNav() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -11,7 +12,11 @@ export default function TopNav() {
   return (
     <nav className={styles.top_nav}>
       <div className={styles.top_nav__logo}>
-
+        <Link href="/">
+          <a>
+            <MainLogo bg_mode="light" />
+          </a>
+        </Link>
       </div>
 
       <div className={styles.top_nav__search_box}>
@@ -52,12 +57,23 @@ export default function TopNav() {
       </div>
 
       <div className={styles.top_nav__actions}>
-        <DefaultButton 
-          text="Sign in" 
-          bg_color="transparent" 
-          f_color="#3ea6ff" 
-          br_color="#3ea6ff" 
-          width="35%" />
+        <div className={styles.top_nav__actions__desktop_button}>
+          <DefaultButton 
+            text="Sign in" 
+            bg_color="transparent" 
+            f_color="#3ea6ff" 
+            br_color="#3ea6ff" 
+            width="35%" />
+        </div>
+
+        <div className={styles.top_nav__actions__mobile_button}>
+          <DefaultButton 
+            text="Sign in" 
+            bg_color="transparent" 
+            f_color="#3ea6ff" 
+            br_color="#3ea6ff" 
+            width="100%" />
+        </div>
       </div>
     </nav>
   )

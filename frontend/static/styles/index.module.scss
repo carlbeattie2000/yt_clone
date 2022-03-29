@@ -10,3 +10,12 @@
     text-decoration: none;
   }
 }
+
+@media only screen and (max-width: 500px) {
+  .videos_preview_container {
+    width: 95%;
+    margin: 0 auto;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+} 
