@@ -7,7 +7,7 @@ const app = express();
 const PORT = process.env.PORT || 4001;
 
 // Routes
-const videosRoute = require("./routes/videos");
+const videosRoute = require("./routes/videos/videos");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());     

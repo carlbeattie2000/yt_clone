@@ -14,9 +14,11 @@ export function handleWatchTimeTracking(e, v_id, v_length) {
 
   videoTrackingData[v_id]["currentTime"] =  e.target.currentTime;
 
-  let watchTime = parseFloat(videoTrackingData[v_id]["watchTime"]) + .3 || 0 + .3;
+  if (parseFloat(videoTrackingData[v_id]["watchTime"] < v_length)) {
+    let watchTime = parseFloat(videoTrackingData[v_id]["watchTime"]) + .3 || 0 + .3;
 
-  videoTrackingData[v_id]["watchTime"] = watchTime;
+    videoTrackingData[v_id]["watchTime"] = watchTime;
+  }
 
   localStorage.setItem("v_t", JSON.stringify(videoTrackingData));
 

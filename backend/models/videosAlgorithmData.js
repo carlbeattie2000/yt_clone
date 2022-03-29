@@ -7,11 +7,15 @@ const VideoAlgorithmDataSchema = new mongoose.Schema({
   },
   viewsByDate: {
     type: Object,
-    default: {}
+    default: {
+      [new Date()]: 0,
+    }
   },
   likesByDate: {
     type: Object,
-    default: {}
+    default: {
+      [new Date()]: 0,
+    }
   },
   averageWatchTime: {
     type: Number,
@@ -23,6 +27,6 @@ const VideoAlgorithmDataSchema = new mongoose.Schema({
   }
 })
 
-const videoAlgorithmData = mongoose.Model("videoAlgorithmData", VideoAlgorithmDataSchema);
+const videoAlgorithmData = mongoose.model("videoAlgorithmData", VideoAlgorithmDataSchema);
 
 module.exports = videoAlgorithmData;

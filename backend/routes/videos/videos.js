@@ -2,20 +2,21 @@ const express = require("express");
 
 const router = express.Router();
 
-const videos = require("../models/video");
+const videoController = require("../../controllers/getVideos");
+const videos = require("../../models/video");
+
+const videoStatsRouter = require("./stats/watch_time");
+
+router.use("/stats", videoStatsRouter);
 
 router.get("/recommend_videos", (req, res) => {
-  videos.find({}, (err, docs) => {
-    res.send(docs);
-  })
+  videoController.getRecommendVideos().then(results => res.send(results))
 })
 
 router.get("/video_details", (req, res) => {
   const v_id = req.query.v_id;
 
-  videos.findOne({ v_id: v_id }, (err, doc) => {
-    res.send(doc);
-  })
+  videoController.getVideo(v_id).then(doc => res.send(doc));
 })
 
 router.post("/video_viewed", (req, res) => {
