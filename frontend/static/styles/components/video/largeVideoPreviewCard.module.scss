@@ -14,6 +14,21 @@
       border-radius: .4rem;
       top: 85%;
       left: 85%;
+      z-index: 5;
+    }
+
+    .thumbnail__video_viewedTime {
+      position: absolute;
+      left: 0;
+      top: 96%;
+      width: 100%;
+      z-index: 1;
+      height: .3rem;
+      border: none;
+
+      &::-moz-progress-bar {
+        background: red;
+      }
     }
   }
 

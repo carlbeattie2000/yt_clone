@@ -24,6 +24,7 @@ export default function Home({ videosResponse }) {
             <Link href={{ pathname: "/watch", query: { v: video.v_id } }}>
               <a>
                 <LargeVideoPreviewCard 
+                  v_id={video.v_id}
                   thumbnailSrc={video.v_id+".jpg"} 
                   title={video.title}
                   author={video.author}
