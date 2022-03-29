@@ -1,5 +1,5 @@
 import LayoutLarge from "./layoutLarge";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import cookieCutter from "cookie-cutter";
 import { useRouter } from "next/router";
 
@@ -18,9 +18,17 @@ export const getServerSideProps = async (context) => {
 }
 
 export default function WatchVideo({ videoResponse }) {
+  
   const router = useRouter();
 
   const [watchTime, setWatchTime] = useState(0);
+  const [currentVideoTime, setCurrentVideoTime] = useState(0);
+
+  useEffect(() => {
+    let videoTimeWatched = parseFloat(cookieCutter.get(videoResponse.v_id + "_videoCurrentTime")) || 0;
+
+    setCurrentVideoTime(videoTimeWatched);
+  }, []);
 
   function handleVideoWatchTimeTracking(e) {
 
@@ -58,7 +66,15 @@ export default function WatchVideo({ videoResponse }) {
   return (
     <LayoutLarge>
       <section className="video-box">
-        <video controls autoPlay onTimeUpdate={(e) => handleVideoWatchTimeTracking(e)}>
+        <video 
+          controls 
+          preload="auto" 
+          onTimeUpdate={(e) => handleVideoWatchTimeTracking(e)}
+          onLoadedMetadata={(e) => {
+            e.target.currentTime = currentVideoTime
+            console.log("reload data", currentVideoTime);
+          }}
+          >
           <source src={`http://localhost:4001/video_content/videos/${videoResponse.v_id}.mp4`}></source>
         </video>
       </section>
