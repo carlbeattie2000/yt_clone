@@ -7,7 +7,7 @@ const ViewerVideoStatsSchema = new mongoose.Schema({
   },
   videoId: {
     type: String,
-    default: ""
+    default: "",
   },
   watchTime: {
     type: Number,
@@ -22,6 +22,8 @@ const ViewerVideoStatsSchema = new mongoose.Schema({
     default: 0
   }
 })
+
+ViewerVideoStatsSchema.index({ videoId: -1 })
 
 const viewerVideoStats = mongoose.model("viewerVideoStats", ViewerVideoStatsSchema);
 

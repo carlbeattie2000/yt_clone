@@ -62,7 +62,6 @@ async function getVideo(v_id) {
     const updateQuery = `viewsByDate.${dateNow}`;
 
     videoAlgorithmicData.findOneAndUpdate({ video_id: v_id }, {$inc: {[updateQuery]: 1}}, (err, doc2) => {
-      console.log(v_id, doc2);
       if (err) return
     })
 

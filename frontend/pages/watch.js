@@ -1,6 +1,6 @@
 import LayoutLarge from "./layoutLarge";
 import { useState, useEffect } from "react";
-import { handleWatchTimeTracking, getVideoCurrentTime } from "../utils/videoTracking";
+import { handleWatchTimeTracking, getVideoCurrentTime, updateVideoServerWatchTime } from "../utils/videoTracking";
 import formatNumber from "../utils/formatNumber";
 import { formattedDate } from "../utils/timeFunctions";
 import { MdThumbUpOffAlt, MdThumbDownOffAlt, MdOutlineShortcut, MdOutlineContentCut, MdPlaylistAdd, MdMoreHoriz } from "react-icons/md";
@@ -23,12 +23,11 @@ export const getServerSideProps = async (context) => {
 
 export default function WatchVideo({ videoResponse }) {
   const [currentVideoTime, setCurrentVideoTime] = useState(0);
+  const [videoWatchTime, setVideoWatchTime] = useState(0);
 
   useEffect(() => {
     setCurrentVideoTime(getVideoCurrentTime(videoResponse.v_id));
   }, []);
-
-  
 
   return (
     <LayoutLarge>
@@ -38,9 +37,15 @@ export default function WatchVideo({ videoResponse }) {
             key={videoResponse.v_id}
             controls
             preload="auto"
-            onTimeUpdate={(e) => handleWatchTimeTracking(e, videoResponse.v_id, videoResponse.length)}
+            onTimeUpdate={(e) => {
+              handleWatchTimeTracking(e, videoResponse.v_id, videoResponse.length)
+            }}
             onLoadedMetadata={(e) => {
-              e.target.currentTime = currentVideoTime
+              e.target.currentTime = currentVideoTime;
+
+              setInterval(() => {
+                updateVideoServerWatchTime(e, videoResponse.v_id);
+              }, 16000)
             }}
             >
             <source src={`http://192.168.0.3:4001/video_content/videos/${videoResponse.v_id}.mp4`}></source>
