@@ -4,13 +4,10 @@ import crypto from "crypto";
 
 /* 
 
-  Takes in the elements event, which we get the files from
-  then make sure the file has the correct mime type
-  after make sure the file does not exceed the max size
-  finally load the image into a Image object and max sure it does not
-  exceed the min-max height and width.
-  if none of the issues above ocurred return the file object
-
+  @e - element event
+  @maxFileSize - max file size allowed to be uploaded
+  @minWidth, @maxWidth - min and max width of allowed image dimensions
+  @minHeight, @maxHeight - min and max height of allowed image dimensions
 
   @return fileObject or ""
 */
@@ -49,8 +46,7 @@ async function handleImageUpload(e, maxFileSize, minWidth, maxWidth, minHeight, 
 
 /* 
 
-  Load the image from the file into a image object
-  and then return the width and height of the image
+  @file - file variable form input file object
 
   @return width, height of image
 
