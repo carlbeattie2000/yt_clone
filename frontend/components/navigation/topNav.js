@@ -63,7 +63,10 @@ export default function TopNav() {
             bg_color="transparent" 
             f_color="#3ea6ff" 
             br_color="#3ea6ff" 
-            width="35%" />
+            width="35%"
+            onclick={() => {
+              window.location.href = "/login";
+            }} />
         </div>
 
         <div className={styles.top_nav__actions__mobile_button}>
@@ -72,7 +75,10 @@ export default function TopNav() {
             bg_color="transparent" 
             f_color="#3ea6ff" 
             br_color="#3ea6ff" 
-            width="100%" />
+            width="100%"
+            onclick={() => {
+              window.location.href = "/login";
+            }} />
         </div>
       </div>
     </nav>
