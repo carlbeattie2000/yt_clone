@@ -1,6 +1,5 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const path = require("path");
 const cors = require("cors");
 
 const app = express();
@@ -10,8 +9,8 @@ const PORT = process.env.PORT || 4001;
 const videosRoute = require("./routes/videos/videos");
 const usersRoute = require("./routes/users");
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());     
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));     
 app.use(express.static("public"));
 app.use(cors());
 

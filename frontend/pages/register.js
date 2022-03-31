@@ -2,8 +2,16 @@ import Layout from "./layout";
 import styles from "../static/styles/login.module.scss";
 import ImageUploadButton from "../components/imageUploadButton";
 import DefaultButton from "../components/defaultButton";
+import { useState } from "react";
 
 export default function LoginPage(){
+  const [profileImage, setProfileImage] = useState("");
+  const [bannerImage, setBannerImage] = useState("");
+
+  const childToParent = (childData) => {
+    setProfileImage(childData);
+  }
+
   return (
     <Layout>
       <section className={styles.form_container}>
@@ -36,11 +44,16 @@ export default function LoginPage(){
               maxWidth="800"
               minHeight="600"
               maxHeight="800"
+              childToParent={childToParent}
             />
           </div>
 
           <div className={styles.form_container__form__input_box}>
             <ImageUploadButton content="Banner Image" maxFileSize="5" />
+          </div>
+          
+          <div>
+            {childData.name}
           </div>
 
           <div className={styles.form_container__form__input_box}>

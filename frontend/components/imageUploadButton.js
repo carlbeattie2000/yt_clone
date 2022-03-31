@@ -3,7 +3,6 @@ import { useState } from "react";
 import crypto from "crypto";
 
 /* 
-
   @e - element event
   @maxFileSize - max file size allowed to be uploaded
   @minWidth, @maxWidth - min and max width of allowed image dimensions
@@ -11,7 +10,7 @@ import crypto from "crypto";
 
   @return fileObject or ""
 */
-async function handleImageUpload(e, maxFileSize, minWidth, maxWidth, minHeight, maxHeight) {
+async function handleImageUpload(e, maxFileSize, minWidth, maxWidth, minHeight, maxHeight, childToParent) {
   const validMimeTypes = [
     "image/png", 
     "image/jpg", 
@@ -45,11 +44,9 @@ async function handleImageUpload(e, maxFileSize, minWidth, maxWidth, minHeight, 
 }
 
 /* 
-
   @file - file variable form input file object
 
   @return width, height of image
-
 */
 async function getImageDimensions(file) {
   const imageUrl = URL.createObjectURL(file);
@@ -67,8 +64,9 @@ async function getImageDimensions(file) {
 
 
 /*
-
-  Check to see if the image dimensions exceed the min-max limit
+  @minWidth, @maxWidth - min and max width of allowed image dimensions
+  @minHeight, @maxHeight - min and max height of allowed image dimensions
+  @file - file object from image input
 
 
   @return true or false
@@ -108,6 +106,7 @@ export default function ImageUploadButton({ content, maxFileSize, minWidth, maxW
             maxHeight);
 
           setFile(file);
+          childToParent(file);
         }}></input>
       {file ? <input type="text" value={file.name} disabled /> : ""}
     </div>

@@ -6,9 +6,8 @@ async function registerUser({
   username,
   email,
   password,
-  profileImage = "",
-  bannerImage = "",
   },
+  profileImage="",
   res) {
 
   if (!(fullName, username, email, password)) {
@@ -26,10 +25,14 @@ async function registerUser({
     password: passwordHashed,
     passwordSalt: passwordSalt,
     profile_image: profileImage,
-    banner_image: bannerImage
+    banner_image: ""
   }
 
   await userModel.insertMany([UserModelObject]).then(() => {
+
+
+
+
     return res.sendStatus(200);
   }).catch((err) => {
     if (err.code == 11000) {

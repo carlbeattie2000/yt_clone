@@ -1,12 +1,7 @@
 from pytube import YouTube
-from pytube import extract
 from pytube.cli import on_progress
-import requests
-import json
-import shutil
 from pymongo import MongoClient
-import pymongo
-import uuid
+import requests, json, shutil, uuid
 
 fuchsia = '\033[38;2;255;00;255m'  # color as hex #FF00FF
 reset_color = '\033[39m'
