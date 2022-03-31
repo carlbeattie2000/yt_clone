@@ -20,8 +20,6 @@ router.get("/video_details", (req, res) => {
 })
 
 router.post("/video_viewed", (req, res) => {
-  console.log(req.body);
-
   const { v_id, valid_view } = req.body;
 
   if (valid_view == true) {

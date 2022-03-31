@@ -3,7 +3,7 @@ const videoAlgorithmicData = require("../models/videosAlgorithmData");
 
 async function getRecommendVideos() {
   // Search the for all videos, grab the top viewed videos today and show them, if the user is not logged in
-  const videosListSorted =  await videoAlgorithmicData.find({}).then((docs) => {
+  const videosListSorted =  await videoAlgorithmicData.find({}, "video_id viewsByDate").then((docs) => {
     const dateNow = new Date();
     dateNow.setHours(0, 0, 0, 0);
 
@@ -61,8 +61,10 @@ async function getVideo(v_id) {
 
     const updateQuery = `viewsByDate.${dateNow}`;
 
-    videoAlgorithmicData.findOneAndUpdate({ video_id: v_id }, {$inc: {[updateQuery]: 1}}, (err, doc2) => {
-      if (err) return
+    videoAlgorithmicData.findOneAndUpdate({ video_id: v_id }, {$inc: {[updateQuery]: 1}}).select("viewsByDate")
+    .then()
+    .catch((err) => {
+      if (err) throw new Error(err);
     })
 
     return doc

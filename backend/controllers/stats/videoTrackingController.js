@@ -18,18 +18,19 @@ async function updateViewerWatchTime({ id, watchTime, videoId }) {
     {
       "$set": { "watchTimes.$.watchTime": watchTime }
     })
-    .then( async (err, doc) => {
-      if (err) console.error(err);
-
+    .then( async (doc) => {
       if (doc == undefined) {
 
         videoAlgoModel.findOneAndUpdate(
           { video_id: videoId }, 
           { $push: { watchTimes: viewerTrackingData } })
           .then()
-          .catch(console.log)
+          .catch(new Error)
 
       }
+    })
+    .catch((err) => {
+      if (err) throw new Error(err);
     })
 }
 
