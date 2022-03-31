@@ -10,7 +10,7 @@ import crypto from "crypto";
 
   @return fileObject or ""
 */
-async function handleImageUpload(e, maxFileSize, minWidth, maxWidth, minHeight, maxHeight, childToParent) {
+async function handleImageUpload(e, maxFileSize, minWidth, maxWidth, minHeight, maxHeight) {
   const validMimeTypes = [
     "image/png", 
     "image/jpg", 
@@ -86,7 +86,7 @@ function imageDimensionsMeetRequirements(minWidth, maxWidth, minHeight, maxHeigh
   return true
 }
 
-export default function ImageUploadButton({ content, maxFileSize, minWidth, maxWidth, minHeight, maxHeight }) {
+export default function ImageUploadButton({ content, name, maxFileSize, minWidth, maxWidth, minHeight, maxHeight }) {
   const [file, setFile] = useState("");
   const id = crypto.randomBytes(16).toString("hex");
 
@@ -96,6 +96,7 @@ export default function ImageUploadButton({ content, maxFileSize, minWidth, maxW
       <input 
         type="file" 
         id={id}
+        name={name}
         onInput={async (e) => {
           const file = await handleImageUpload(
             e, 
@@ -106,7 +107,6 @@ export default function ImageUploadButton({ content, maxFileSize, minWidth, maxW
             maxHeight);
 
           setFile(file);
-          childToParent(file);
         }}></input>
       {file ? <input type="text" value={file.name} disabled /> : ""}
     </div>
